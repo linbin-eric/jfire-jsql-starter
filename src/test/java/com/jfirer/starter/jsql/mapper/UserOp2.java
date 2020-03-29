@@ -1,11 +1,11 @@
 package com.jfirer.starter.jsql.mapper;
 
 import com.jfirer.jsql.annotation.Sql;
-import com.jfirer.jsql.mapper.Mapper;
+import com.jfirer.starter.jsql.AutoMapper;
 import com.jfirer.starter.jsql.entity.User;
 
-@Mapper
-public interface UserOp
+@AutoMapper
+public interface UserOp2
 {
     @Sql(sql = "select * from User where id =${id}", paramNames = "id")
     User find(int id);

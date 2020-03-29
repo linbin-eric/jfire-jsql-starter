@@ -39,6 +39,17 @@ public class Tester
         setUserName.setUser(12);
         User user = setUserName.getUser();
         Assert.assertEquals(12, user.getAge());
-        Assert.assertEquals(12,setUserName.getUserByMapper(user.getId()).getAge());
+        Assert.assertEquals(12, setUserName.getUserByMapper(user.getId()).getAge());
+    }
+
+    @Test
+    public void test2()
+    {
+        ApplicationContext applicationContext = new AnnotatedApplicationContext(Tester.class);
+        SetUserName        setUserName        = applicationContext.getBean(SetUserName.class);
+        setUserName.setUser(12);
+        User user = setUserName.getUser();
+        Assert.assertEquals(12, user.getAge());
+        Assert.assertEquals(12, setUserName.getUserByAutoMapper(user.getId()).getAge());
     }
 }

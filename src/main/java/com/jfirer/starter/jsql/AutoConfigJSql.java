@@ -52,4 +52,10 @@ public class AutoConfigJSql
     {
         return new SqlSessionProxy(transactionManager);
     }
+
+    @Bean
+    public MapperFactory mapperFactory(JsqlTransactionManager jsqlTransactionManager)
+    {
+        return new MapperFactory(jsqlTransactionManager);
+    }
 }
