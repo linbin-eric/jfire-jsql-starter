@@ -34,6 +34,7 @@ public class MapperFactory implements BeanFactory
             MethodModel   methodModel = new MethodModel(each, classModel);
             StringBuilder body        = new StringBuilder();
             body.append("SqlSession sqlSession = transactionManager.currentSession();\r\n");
+            body.append("if(sqlSession==null){throw new NullPointerException(\"session 为空\");\r\n}");
             if (each.getReturnType() == void.class)
             {
                 ;
