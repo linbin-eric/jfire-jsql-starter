@@ -1,7 +1,7 @@
 package com.jfirer.starter.jsql;
 
-import com.jfirer.jfire.core.AnnotatedApplicationContext;
 import com.jfirer.jfire.core.ApplicationContext;
+import com.jfirer.jfire.core.DefaultApplicationContext;
 import com.jfirer.jfire.core.prepare.annotation.AddProperty;
 import com.jfirer.jfire.core.prepare.annotation.ComponentScan;
 import com.jfirer.jfire.core.prepare.annotation.EnableAutoConfiguration;
@@ -34,7 +34,7 @@ public class Tester
     @Test
     public void test()
     {
-        ApplicationContext applicationContext = new AnnotatedApplicationContext(Tester.class);
+        ApplicationContext applicationContext = new DefaultApplicationContext(Tester.class);
         SetUserName        setUserName        = applicationContext.getBean(SetUserName.class);
         setUserName.setUser(12);
         User user = setUserName.getUser();
@@ -45,7 +45,7 @@ public class Tester
     @Test
     public void test2()
     {
-        ApplicationContext applicationContext = new AnnotatedApplicationContext(Tester.class);
+        ApplicationContext applicationContext = new DefaultApplicationContext(Tester.class);
         SetUserName        setUserName        = applicationContext.getBean(SetUserName.class);
         setUserName.setUser(12);
         User user = setUserName.getUser();
