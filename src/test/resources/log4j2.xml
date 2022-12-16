@@ -8,8 +8,11 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.jfirer" level="debug">
+		<Logger name="com.jfirer" level="debug" >
 			<AppenderRef ref="Console" />
 		</Logger>
+		<Root level="error">
+			<AppenderRef ref="name"/>
+		</Root>
 	</Loggers>
 </Configuration>

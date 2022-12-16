@@ -2,6 +2,7 @@ package com.jfirer.starter.jsql;
 
 import com.jfirer.jfire.core.aop.impl.transaction.ConnectionHolder;
 import com.jfirer.jfire.core.aop.impl.transaction.JdbcTransactionManager;
+import com.jfirer.jfire.core.aop.impl.transaction.JdbcTransactionState;
 import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.session.SqlSession;
 
@@ -23,7 +24,7 @@ public class JsqlTransactionManager extends JdbcTransactionManager
 
     public SqlSession currentSession()
     {
-        ConnectionHolder connectionHolder = CONTEXT.get();
-        return connectionHolder == null ? null : ((ConnectionHolderImpl) connectionHolder).getSession();
+        JdbcTransactionState state = CONTEXT.get();
+        return ((ConnectionHolderImpl) state.getConnectionHolder()).getSession();
     }
 }

@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.baseutil.bytecode.support.OverridesAttribute;
 import com.jfirer.jfire.core.beanfactory.SelectBeanFactory;
 import com.jfirer.jsql.mapper.Mapper;
 
@@ -16,4 +17,5 @@ import java.lang.annotation.Target;
 @Mapper
 public @interface AutoMapper
 {
+    @OverridesAttribute(name = "value", annotation = Mapper.class) Class<?>[] value() default {};
 }

@@ -5,11 +5,12 @@ import com.jfirer.baseutil.smc.SmcHelper;
 import com.jfirer.baseutil.smc.compiler.CompileHelper;
 import com.jfirer.baseutil.smc.model.ClassModel;
 import com.jfirer.baseutil.smc.model.MethodModel;
-import com.jfirer.jfire.core.BeanFactory;
-import com.jfirer.jfire.core.beandescriptor.BeanDescriptor;
+import com.jfirer.jfire.core.bean.BeanDefinition;
+import com.jfirer.jfire.core.beanfactory.BeanFactory;
 import com.jfirer.jsql.mapper.Mapper;
 import com.jfirer.jsql.session.SqlSession;
 
+import java.beans.BeanDescriptor;
 import java.lang.reflect.Method;
 
 public class MapperFactory implements BeanFactory
@@ -22,10 +23,13 @@ public class MapperFactory implements BeanFactory
         this.transactionManager = transactionManager;
     }
 
+
+
     @Override
-    public <E> E getBean(BeanDescriptor beanDescriptor)
+    public <E> E getUnEnhanceyInstance(BeanDefinition beanDefinition)
     {
-        Class<?> descriptorClass = beanDescriptor.getDescriptorClass();
+
+        Class<?> descriptorClass = beanDefinition.getType();
         ClassModel classModel    = new ClassModel(descriptorClass.getSimpleName() + "$Mapper", MapperProxy.class, descriptorClass);
         classModel.addImport(SqlSession.class);
         String     referenceName = SmcHelper.getReferenceName(descriptorClass, classModel);

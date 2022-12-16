@@ -1,10 +1,9 @@
 package com.jfirer.starter.jsql;
 
-import com.jfirer.jsql.curd.LockMode;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.session.SqlSession;
-import com.jfirer.jsql.transfer.resultset.ResultSetTransfer;
 
+import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.List;
 
@@ -20,8 +19,7 @@ public class SqlSessionProxy implements SqlSession
     @Override
     public <T> T getMapper(Class<T> mapperClass)
     {
-        SqlSession sqlSession = transactionManager.currentSession();
-        return sqlSession.getMapper(mapperClass);
+        return transactionManager.currentSession().getMapper(mapperClass);
     }
 
     @Override
@@ -61,114 +59,68 @@ public class SqlSessionProxy implements SqlSession
     }
 
     @Override
-    public <T> void save(T entity)
+    public <T> int save(T entity)
     {
-        SqlSession session = transactionManager.currentSession();
-        session.save(entity);
+        return transactionManager.currentSession().save(entity);
     }
 
     @Override
-    public <T> void update(T entity)
+    public <T> int update(T entity)
     {
-        SqlSession session = transactionManager.currentSession();
-        session.update(entity);
+        return transactionManager.currentSession().update(entity);
     }
 
     @Override
-    public <T> int delete(Class<T> ckass, Object pk)
+    public <T> int insert(T entity)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.delete(ckass, pk);
-    }
-
-    @Override
-    public <T> void insert(T entity)
-    {
-        SqlSession session = transactionManager.currentSession();
-        session.insert(entity);
-    }
-
-    @Override
-    public <T> T get(Class<T> entityClass, Object pk)
-    {
-        SqlSession session = transactionManager.currentSession();
-        return session.get(entityClass, pk);
-    }
-
-    @Override
-    public <T> T get(Class<T> entityClass, Object pk, LockMode mode)
-    {
-        SqlSession session = transactionManager.currentSession();
-        return session.get(entityClass, pk, mode);
+        return transactionManager.currentSession().insert(entity);
     }
 
     @Override
     public <T> T findOne(Model model)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.findOne(model);
+        return transactionManager.currentSession().findOne(model);
     }
 
     @Override
-    public <T> List<T> find(Model model)
+    public <T> List<T> findList(Model model)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.find(model);
-    }
-
-    @Override
-    public int update(Model model)
-    {
-        SqlSession session = transactionManager.currentSession();
-        return session.update(model);
-    }
-
-    @Override
-    public int delete(Model model)
-    {
-        SqlSession session = transactionManager.currentSession();
-        return session.delete(model);
+        return transactionManager.currentSession().findList(model);
     }
 
     @Override
     public int count(Model model)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.count(model);
+        return transactionManager.currentSession().count(model);
     }
 
     @Override
-    public void insert(Model model)
+    public int execute(Model model)
     {
-        SqlSession session = transactionManager.currentSession();
-        session.insert(model);
+        return transactionManager.currentSession().execute(model);
     }
 
     @Override
-    public int update(String sql, List<Object> params)
+    public int execute(String s, List<Object> list)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.update(sql, params);
+        return transactionManager.currentSession().execute(s, list);
     }
 
     @Override
     public String insertReturnPk(String sql, List<Object> params)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.insertReturnPk(sql, params);
+        return transactionManager.currentSession().insertReturnPk(sql, params);
     }
 
     @Override
-    public <T> T query(ResultSetTransfer transfer, String sql, List<Object> params)
+    public <T> T query(String s, AnnotatedElement annotatedElement, List<Object> list)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.query(transfer, sql, params);
+        return transactionManager.currentSession().query(s, annotatedElement, list);
     }
 
     @Override
-    public <T> List<T> queryList(ResultSetTransfer transfer, String sql, List<Object> params)
+    public <T> List<T> queryList(String s, AnnotatedElement annotatedElement, List<Object> list)
     {
-        SqlSession session = transactionManager.currentSession();
-        return session.queryList(transfer, sql, params);
+        return transactionManager.currentSession().queryList(s, annotatedElement, list);
     }
 }

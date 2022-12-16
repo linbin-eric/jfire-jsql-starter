@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.baseutil.bytecode.util.BytecodeUtil;
 import com.jfirer.jfire.core.ApplicationContext;
 import com.jfirer.jfire.core.DefaultApplicationContext;
 import com.jfirer.jfire.core.prepare.annotation.AddProperty;
@@ -8,11 +9,14 @@ import com.jfirer.jfire.core.prepare.annotation.EnableAutoConfiguration;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
 import com.jfirer.starter.jsql.entity.User;
+import com.jfirer.starter.jsql.mapper.UserOp2;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 @Configuration
 @EnableAutoConfiguration
