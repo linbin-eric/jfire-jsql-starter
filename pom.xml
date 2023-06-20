@@ -17,6 +17,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.jfirer</groupId>
             <artifactId>Jsql</artifactId>
             <version>1.3-SNAPSHOT</version>
@@ -24,7 +29,7 @@
         <dependency>
             <groupId>com.jfirer</groupId>
             <artifactId>jfire</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>1.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -65,14 +70,14 @@
     </dependencies>
     <distributionManagement>
         <repository>
-            <id>nexus</id>
+            <id>nexus3</id>
             <name>nexus</name>
-            <url>http://homenas.club:49159/repository/maven-releases/</url>
+            <url>http://yynas.cn:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshot</id>
+            <id>nexus3</id>
             <name>nexus</name>
-            <url>http://homenas.club:49159/repository/maven-snapshots/</url>
+            <url>http://yynas.cn:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <build>
@@ -124,8 +129,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>15</source>
+                    <target>15</target>
                 </configuration>
             </plugin>
         </plugins>

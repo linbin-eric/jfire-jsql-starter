@@ -1,12 +1,12 @@
 package com.jfirer.starter.jsql;
 
-import com.jfirer.jfire.core.aop.impl.transaction.ConnectionHolder;
+import com.jfirer.jfire.core.aop.impl.support.transaction.ConnectionHolder;
 import com.jfirer.jsql.session.SqlSession;
 
 public class ConnectionHolderImpl implements ConnectionHolder
 {
-    private final SqlSession       session;
-    private       boolean          closed            = false;
+    private final SqlSession session;
+    private       boolean    closed = false;
 
     public ConnectionHolderImpl(SqlSession session)
     {
@@ -23,7 +23,6 @@ public class ConnectionHolderImpl implements ConnectionHolder
     {
         session.beginTransAction();
     }
-
 
     @Override
     public void commit()
@@ -49,5 +48,4 @@ public class ConnectionHolderImpl implements ConnectionHolder
     {
         return closed;
     }
-
 }

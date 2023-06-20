@@ -7,7 +7,6 @@ import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
 import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.SessionfactoryConfig;
 import com.jfirer.jsql.dialect.Dialect;
-import com.jfirer.jsql.session.SqlSession;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -39,9 +38,15 @@ public class AutoConfigJSql
     }
 
     @Bean
-    public SqlSession sqlSession(JsqlTransactionManager transactionManager)
+    public SqlSessionProxy sqlSession(JsqlTransactionManager transactionManager)
     {
         return new SqlSessionProxy(transactionManager);
+    }
+
+    @Bean
+    public ReadOnlySession readOnlySession(JsqlTransactionManager transactionManager)
+    {
+        return new ReadOnlySession(transactionManager);
     }
 
     @Bean

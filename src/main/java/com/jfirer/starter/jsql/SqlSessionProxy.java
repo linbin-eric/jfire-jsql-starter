@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.session.SqlSession;
 
@@ -7,6 +8,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.List;
 
+@Primary
 public class SqlSessionProxy implements SqlSession
 {
     private final JsqlTransactionManager transactionManager;
@@ -74,6 +76,12 @@ public class SqlSessionProxy implements SqlSession
     public <T> int insert(T entity)
     {
         return transactionManager.currentSession().insert(entity);
+    }
+
+    @Override
+    public <T> void batchInsert(List<T> list)
+    {
+        transactionManager.currentSession().batchInsert(list);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.jfirer.starter.jsql.entity;
 
+import com.jfirer.jsql.annotation.AutoIncrement;
 import com.jfirer.jsql.annotation.Pk;
 import com.jfirer.jsql.annotation.TableDef;
-import com.jfirer.jsql.annotation.pkstrategy.AutoIncrement;
 
-@TableDef(name = "user")
+@TableDef("user")
 public class User
 {
     @Pk

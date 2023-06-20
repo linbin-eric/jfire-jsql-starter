@@ -4,7 +4,7 @@ import com.jfirer.jsql.annotation.Sql;
 import com.jfirer.jsql.mapper.Mapper;
 import com.jfirer.starter.jsql.entity.User;
 
-@Mapper
+@Mapper()
 public interface UserOp
 {
     @Sql(sql = "select * from User where id =${id}", paramNames = "id")

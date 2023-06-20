@@ -1,6 +1,5 @@
 package com.jfirer.starter.jsql;
 
-import com.jfirer.baseutil.bytecode.util.BytecodeUtil;
 import com.jfirer.jfire.core.ApplicationContext;
 import com.jfirer.jfire.core.DefaultApplicationContext;
 import com.jfirer.jfire.core.prepare.annotation.AddProperty;
@@ -9,14 +8,15 @@ import com.jfirer.jfire.core.prepare.annotation.EnableAutoConfiguration;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
 import com.jfirer.starter.jsql.entity.User;
-import com.jfirer.starter.jsql.mapper.UserOp2;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Configuration
 @EnableAutoConfiguration
@@ -33,6 +33,28 @@ public class Tester
         dataSource.setUsername("root");
         dataSource.setPassword("");
         return dataSource;
+    }
+
+    @Before
+    public void before() throws SQLException
+    {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl("jdbc:h2:mem:test");
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
+        Connection connection = dataSource.getConnection();
+        connection.prepareStatement("""
+                                    drop table if exists user
+                                    """).execute();
+        PreparedStatement preparedStatement = connection.prepareStatement("""
+                    create table user(                                                      
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL,
+  `age` int NULL,
+  PRIMARY KEY (`id`)                  )                                                        
+                                                                          """);
+        preparedStatement.execute();
     }
 
     @Test
