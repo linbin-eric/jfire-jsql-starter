@@ -30,11 +30,10 @@ public class ReadOnlySession extends SqlSessionProxy
     }
 
     @Override
-    public <T> void batchInsert(List<T> list)
+    public <T> void batchInsert(List<T> list, int batchSize)
     {
         throw new UnsupportedOperationException();
     }
-
 
     @Override
     public int execute(Model model)
