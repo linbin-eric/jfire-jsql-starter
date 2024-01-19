@@ -1,6 +1,7 @@
 package com.jfirer.starter.jsql;
 
 import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
+import com.jfirer.jsql.metadata.Page;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.model.model.QueryModel;
 import com.jfirer.jsql.session.SqlSession;
@@ -80,9 +81,9 @@ public class SqlSessionProxy implements SqlSession
     }
 
     @Override
-    public <T> void batchInsert(List<T> list,int batchSize)
+    public <T> void batchInsert(List<T> list, int batchSize)
     {
-        transactionManager.currentSession().batchInsert(list,batchSize);
+        transactionManager.currentSession().batchInsert(list, batchSize);
     }
 
     @Override
@@ -95,6 +96,12 @@ public class SqlSessionProxy implements SqlSession
     public <T> List<T> findList(QueryModel model)
     {
         return transactionManager.currentSession().findList(model);
+    }
+
+    @Override
+    public Page findListByPage(QueryModel model)
+    {
+        return transactionManager.currentSession().findListByPage(model);
     }
 
     @Override
