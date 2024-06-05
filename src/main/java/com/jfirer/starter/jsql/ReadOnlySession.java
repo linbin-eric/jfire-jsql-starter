@@ -2,6 +2,7 @@ package com.jfirer.starter.jsql;
 
 import com.jfirer.jsql.model.Model;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ReadOnlySession extends SqlSessionProxy
@@ -30,7 +31,7 @@ public class ReadOnlySession extends SqlSessionProxy
     }
 
     @Override
-    public <T> void batchInsert(List<T> list, int batchSize)
+    public <T> void batchInsert(Collection<T> list, int batchSize)
     {
         throw new UnsupportedOperationException();
     }

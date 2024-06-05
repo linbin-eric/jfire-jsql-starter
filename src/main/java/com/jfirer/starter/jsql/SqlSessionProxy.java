@@ -8,6 +8,7 @@ import com.jfirer.jsql.session.SqlSession;
 
 import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
+import java.util.Collection;
 import java.util.List;
 
 @Primary
@@ -81,7 +82,7 @@ public class SqlSessionProxy implements SqlSession
     }
 
     @Override
-    public <T> void batchInsert(List<T> list, int batchSize)
+    public <T> void batchInsert(Collection<T> list, int batchSize)
     {
         transactionManager.currentSession().batchInsert(list, batchSize);
     }
