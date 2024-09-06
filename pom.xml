@@ -6,7 +6,7 @@
 
     <groupId>com.jfirer</groupId>
     <artifactId>jfire-jsql-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>jfire-jsql-starter</name>
     <url>http://www.example.com</url>
     <properties>
@@ -24,12 +24,12 @@
         <dependency>
             <groupId>com.jfirer</groupId>
             <artifactId>Jsql</artifactId>
-            <version>1.3.1-SNAPSHOT</version>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>com.jfirer</groupId>
             <artifactId>jfire</artifactId>
-            <version>1.3.1-SNAPSHOT</version>
+            <version>1.3.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
