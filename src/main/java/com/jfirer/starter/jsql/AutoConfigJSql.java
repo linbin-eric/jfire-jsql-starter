@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.baseutil.Resource;
 import com.jfirer.jfire.core.inject.notated.CanBeNull;
 import com.jfirer.jfire.core.prepare.annotation.condition.provide.ConditionOnMissBeanType;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
@@ -8,7 +9,6 @@ import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.SessionfactoryConfig;
 import com.jfirer.jsql.dialect.Dialect;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration

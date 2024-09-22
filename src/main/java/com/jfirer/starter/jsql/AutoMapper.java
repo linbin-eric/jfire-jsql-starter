@@ -1,10 +1,10 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.baseutil.Resource;
 import com.jfirer.baseutil.bytecode.support.OverridesAttribute;
 import com.jfirer.jfire.core.beanfactory.SelectBeanFactory;
 import com.jfirer.jsql.mapper.Mapper;
 
-import javax.annotation.Resource;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

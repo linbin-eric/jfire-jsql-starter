@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.baseutil.Resource;
 import com.jfirer.jfire.core.aop.notated.Transactional;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.model.Param;
@@ -8,7 +9,6 @@ import com.jfirer.starter.jsql.entity.User;
 import com.jfirer.starter.jsql.mapper.UserOp;
 import com.jfirer.starter.jsql.mapper.UserOp2;
 
-import javax.annotation.Resource;
 
 @Resource
 public class SetUserName
