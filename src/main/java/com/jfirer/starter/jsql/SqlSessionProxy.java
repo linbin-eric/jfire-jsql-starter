@@ -2,6 +2,7 @@ package com.jfirer.starter.jsql;
 
 import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
 import com.jfirer.jsql.metadata.Page;
+import com.jfirer.jsql.metadata.TableEntityInfo;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.model.model.QueryModel;
 import com.jfirer.jsql.session.SqlSession;
@@ -124,9 +125,9 @@ public class SqlSessionProxy implements SqlSession
     }
 
     @Override
-    public String insertReturnPk(String sql, List<Object> params)
+    public String insertReturnPk(String sql, List<Object> params, TableEntityInfo.ColumnInfo pkInfo)
     {
-        return transactionManager.currentSession().insertReturnPk(sql, params);
+        return transactionManager.currentSession().insertReturnPk(sql, params, pkInfo);
     }
 
     @Override

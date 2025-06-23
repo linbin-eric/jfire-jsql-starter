@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.jsql.metadata.TableEntityInfo;
 import com.jfirer.jsql.model.Model;
 
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class ReadOnlySession extends SqlSessionProxy
     }
 
     @Override
-    public String insertReturnPk(String sql, List<Object> params)
+    public String insertReturnPk(String sql, List<Object> params, TableEntityInfo.ColumnInfo pkInfo)
     {
         throw new UnsupportedOperationException();
     }

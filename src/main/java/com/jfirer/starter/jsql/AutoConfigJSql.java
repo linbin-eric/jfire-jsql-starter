@@ -6,7 +6,7 @@ import com.jfirer.jfire.core.prepare.annotation.condition.provide.ConditionOnMis
 import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
 import com.jfirer.jsql.SessionFactory;
-import com.jfirer.jsql.SessionfactoryConfig;
+import com.jfirer.jsql.SessionFactoryConfig;
 import com.jfirer.jsql.dialect.Dialect;
 
 import javax.sql.DataSource;
@@ -24,7 +24,7 @@ public class AutoConfigJSql
     @ConditionOnMissBeanType(SessionFactory.class)
     public SessionFactory sessionFactory()
     {
-        SessionfactoryConfig sessionfactoryConfig = new SessionfactoryConfig();
+        SessionFactoryConfig sessionfactoryConfig = new SessionFactoryConfig();
         sessionfactoryConfig.setDataSource(dataSource);
         sessionfactoryConfig.setDialect(dialect);
         return sessionfactoryConfig.build();
