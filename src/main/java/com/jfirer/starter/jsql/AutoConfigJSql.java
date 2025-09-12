@@ -1,10 +1,13 @@
 package com.jfirer.starter.jsql;
 
 import com.jfirer.baseutil.Resource;
+import com.jfirer.jfire.core.aop.impl.support.transaction.AwareJdbcTransactionDatasource;
+import com.jfirer.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
 import com.jfirer.jfire.core.inject.notated.CanBeNull;
 import com.jfirer.jfire.core.prepare.annotation.condition.provide.ConditionOnMissBeanType;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
 import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
+import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
 import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.SessionFactoryConfig;
 import com.jfirer.jsql.dialect.Dialect;
@@ -15,43 +18,47 @@ import javax.sql.DataSource;
 public class AutoConfigJSql
 {
     @Resource
-    private DataSource dataSource;
-    @Resource
     @CanBeNull
-    private Dialect    dialect;
+    private Dialect dialect;
 
     @Bean
     @ConditionOnMissBeanType(SessionFactory.class)
-    public SessionFactory sessionFactory()
+    public SessionFactory sessionFactory(DataSource dataSource)
     {
         SessionFactoryConfig sessionfactoryConfig = new SessionFactoryConfig();
-        sessionfactoryConfig.setDataSource(dataSource);
+        if (dataSource instanceof AwareJdbcTransactionDatasource awareJdbcTransactionDatasource)
+        {
+            sessionfactoryConfig.setDataSource(dataSource);
+        }
+        else
+        {
+            sessionfactoryConfig.setDataSource(new AwareJdbcTransactionDatasource(dataSource));
+        }
         sessionfactoryConfig.setDialect(dialect);
         return sessionfactoryConfig.build();
     }
 
     @Bean
-    public JsqlTransactionManager transactionManager(SessionFactory sessionFactory)
+    public JdbcTransactionManager transactionManager(DataSource dataSource)
     {
-        JsqlTransactionManager jsqlTransactionManager = new JsqlTransactionManager(sessionFactory);
-        return jsqlTransactionManager;
+        return new JdbcTransactionManager(dataSource);
     }
 
     @Bean
-    public SqlSessionProxy sqlSession(JsqlTransactionManager transactionManager)
+    public SqlSessionProxy sqlSession(SessionFactory sessionFactory)
     {
-        return new SqlSessionProxy(transactionManager);
+        return new SqlSessionProxy(sessionFactory);
     }
 
     @Bean
-    public ReadOnlySession readOnlySession(JsqlTransactionManager transactionManager)
+    public ReadOnlySession readOnlySession(SessionFactory sessionFactory)
     {
-        return new ReadOnlySession(transactionManager);
+        return new ReadOnlySession(sessionFactory);
     }
 
     @Bean
-    public MapperFactory mapperFactory(JsqlTransactionManager jsqlTransactionManager)
+    public MapperFactory mapperFactory(SessionFactory sessionFactory)
     {
-        return new MapperFactory(jsqlTransactionManager);
+        return new MapperFactory(sessionFactory);
     }
 }

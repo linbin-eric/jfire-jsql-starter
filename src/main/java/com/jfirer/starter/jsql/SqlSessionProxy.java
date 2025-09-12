@@ -1,144 +1,117 @@
 package com.jfirer.starter.jsql;
 
 import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
+import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.metadata.Page;
 import com.jfirer.jsql.metadata.TableEntityInfo;
 import com.jfirer.jsql.model.Model;
 import com.jfirer.jsql.model.model.QueryModel;
 import com.jfirer.jsql.session.SqlSession;
+import com.jfirer.jsql.transfer.ResultSetTransfer;
+import lombok.Data;
 
-import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 
+@Data
 @Primary
 public class SqlSessionProxy implements SqlSession
 {
-    private final JsqlTransactionManager transactionManager;
-
-    public SqlSessionProxy(JsqlTransactionManager transactionManager)
-    {
-        this.transactionManager = transactionManager;
-    }
+    private final SessionFactory sessionFactory;
 
     @Override
     public <T> T getMapper(Class<T> mapperClass)
     {
-        return transactionManager.currentSession().getMapper(mapperClass);
+        return sessionFactory.openSession().getMapper(mapperClass);
     }
 
     @Override
-    public void close()
+    public <T> void batchInsert(Collection<T> collection, int batchSize)
     {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public void beginTransAction()
-    {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public void commit()
-    {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public void flush()
-    {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public void rollback()
-    {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public Connection getConnection()
-    {
-        throw new UnsupportedOperationException("使用声明式事务注解，不要自行操作该接口");
-    }
-
-    @Override
-    public <T> int save(T entity)
-    {
-        return transactionManager.currentSession().save(entity);
-    }
-
-    @Override
-    public <T> int update(T entity)
-    {
-        return transactionManager.currentSession().update(entity);
-    }
-
-    @Override
-    public <T> int insert(T entity)
-    {
-        return transactionManager.currentSession().insert(entity);
-    }
-
-    @Override
-    public <T> void batchInsert(Collection<T> list, int batchSize)
-    {
-        transactionManager.currentSession().batchInsert(list, batchSize);
     }
 
     @Override
     public <T> T findOne(QueryModel model)
     {
-        return transactionManager.currentSession().findOne(model);
+        return null;
     }
 
     @Override
     public <T> List<T> findList(QueryModel model)
     {
-        return transactionManager.currentSession().findList(model);
+        return List.of();
     }
 
     @Override
     public Page findListByPage(QueryModel model)
     {
-        return transactionManager.currentSession().findListByPage(model);
+        return null;
     }
 
     @Override
     public int count(Model model)
     {
-        return transactionManager.currentSession().count(model);
+        return 0;
     }
 
     @Override
     public int execute(Model model)
     {
-        return transactionManager.currentSession().execute(model);
+        return 0;
     }
 
     @Override
-    public int execute(String s, List<Object> list)
+    public <T> int save(T entity)
     {
-        return transactionManager.currentSession().execute(s, list);
+        return 0;
+    }
+
+    @Override
+    public <T> int update(T entity)
+    {
+        return 0;
+    }
+
+    @Override
+    public <T> int insert(T entity)
+    {
+        return 0;
+    }
+
+    @Override
+    public int execute(String sql, List<Object> params)
+    {
+        return 0;
     }
 
     @Override
     public String insertReturnPk(String sql, List<Object> params, TableEntityInfo.ColumnInfo pkInfo)
     {
-        return transactionManager.currentSession().insertReturnPk(sql, params, pkInfo);
+        return "";
     }
 
     @Override
-    public <T> T query(String s, AnnotatedElement annotatedElement, List<Object> list)
+    public <T> T query(String sql, ResultSetTransfer transfer, List<Object> params)
     {
-        return transactionManager.currentSession().query(s, annotatedElement, list);
+        return null;
     }
 
     @Override
-    public <T> List<T> queryList(String s, AnnotatedElement annotatedElement, List<Object> list)
+    public <T> List<T> queryList(String sql, ResultSetTransfer transfer, List<Object> params)
     {
-        return transactionManager.currentSession().queryList(s, annotatedElement, list);
+        return List.of();
+    }
+
+    @Override
+    public void close()
+    {
+        throw new UnsupportedOperationException("由事务管理器管理，不需要手动关闭");
+    }
+
+    @Override
+    public Connection getConnection()
+    {
+        return null;
     }
 }

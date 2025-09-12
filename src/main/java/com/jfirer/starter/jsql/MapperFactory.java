@@ -5,40 +5,35 @@ import com.jfirer.baseutil.smc.SmcHelper;
 import com.jfirer.baseutil.smc.compiler.CompileHelper;
 import com.jfirer.baseutil.smc.model.ClassModel;
 import com.jfirer.baseutil.smc.model.MethodModel;
+import com.jfirer.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
 import com.jfirer.jfire.core.bean.BeanDefinition;
 import com.jfirer.jfire.core.beanfactory.BeanFactory;
+import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.mapper.Mapper;
 import com.jfirer.jsql.session.SqlSession;
+import lombok.Data;
 
 import java.beans.BeanDescriptor;
 import java.lang.reflect.Method;
 
+@Data
 public class MapperFactory implements BeanFactory
 {
-    private       CompileHelper          compileHelper = new CompileHelper();
-    private final JsqlTransactionManager transactionManager;
-
-    public MapperFactory(JsqlTransactionManager transactionManager)
-    {
-        this.transactionManager = transactionManager;
-    }
-
-
+    private       CompileHelper  compileHelper = new CompileHelper();
+    private final SessionFactory sessionFactory;
 
     @Override
     public <E> E getUnEnhanceyInstance(BeanDefinition beanDefinition)
     {
-
-        Class<?> descriptorClass = beanDefinition.getType();
-        ClassModel classModel    = new ClassModel(descriptorClass.getSimpleName() + "$Mapper", MapperProxy.class, descriptorClass);
+        Class<?>   descriptorClass = beanDefinition.getType();
+        ClassModel classModel      = new ClassModel(descriptorClass.getSimpleName() + "$Mapper", MapperProxy.class, descriptorClass);
         classModel.addImport(SqlSession.class);
-        String     referenceName = SmcHelper.getReferenceName(descriptorClass, classModel);
+        String referenceName = SmcHelper.getReferenceName(descriptorClass, classModel);
         for (Method each : descriptorClass.getDeclaredMethods())
         {
             MethodModel   methodModel = new MethodModel(each, classModel);
             StringBuilder body        = new StringBuilder();
-            body.append("SqlSession sqlSession = transactionManager.currentSession();\r\n");
-            body.append("if(sqlSession==null){throw new NullPointerException(\"session 为空\");\r\n}");
+            body.append("SqlSession sqlSession = sessionFactory.openSession();\r\n");
             if (each.getReturnType() == void.class)
             {
                 ;
@@ -67,7 +62,7 @@ public class MapperFactory implements BeanFactory
         {
             Class<?>    compile     = compileHelper.compile(classModel);
             MapperProxy mapperProxy = (MapperProxy) compile.newInstance();
-            mapperProxy.setTransactionManager(transactionManager);
+            mapperProxy.setSessionFactory(sessionFactory);
             return (E) mapperProxy;
         }
         catch (Exception e)
@@ -79,11 +74,11 @@ public class MapperFactory implements BeanFactory
 
     public static class MapperProxy
     {
-        protected JsqlTransactionManager transactionManager;
+        protected SessionFactory sessionFactory;
 
-        public void setTransactionManager(JsqlTransactionManager transactionManager)
+        public void setSessionFactory(SessionFactory sessionFactory)
         {
-            this.transactionManager = transactionManager;
+            this.sessionFactory = sessionFactory;
         }
     }
 }

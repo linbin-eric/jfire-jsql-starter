@@ -1,5 +1,6 @@
 package com.jfirer.starter.jsql;
 
+import com.jfirer.jsql.SessionFactory;
 import com.jfirer.jsql.metadata.TableEntityInfo;
 import com.jfirer.jsql.model.Model;
 
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class ReadOnlySession extends SqlSessionProxy
 {
-    public ReadOnlySession(JsqlTransactionManager transactionManager)
+    public ReadOnlySession(SessionFactory sessionFactory)
     {
-        super(transactionManager);
+        super(sessionFactory);
     }
 
     @Override
