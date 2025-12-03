@@ -1,13 +1,13 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
-import com.jfirer.jsql.SessionFactory;
-import com.jfirer.jsql.metadata.Page;
-import com.jfirer.jsql.metadata.TableEntityInfo;
-import com.jfirer.jsql.model.Model;
-import com.jfirer.jsql.model.model.QueryModel;
-import com.jfirer.jsql.session.SqlSession;
-import com.jfirer.jsql.transfer.ResultSetTransfer;
+import cc.jfire.jfire.core.prepare.annotation.configuration.Primary;
+import cc.jfire.jsql.SessionFactory;
+import cc.jfire.jsql.metadata.Page;
+import cc.jfire.jsql.metadata.TableEntityInfo;
+import cc.jfire.jsql.model.Model;
+import cc.jfire.jsql.model.model.QueryModel;
+import cc.jfire.jsql.session.SqlSession;
+import cc.jfire.jsql.transfer.ResultSetTransfer;
 import lombok.Data;
 
 import java.sql.Connection;

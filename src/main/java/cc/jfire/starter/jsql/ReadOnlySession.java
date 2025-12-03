@@ -1,8 +1,8 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.jsql.SessionFactory;
-import com.jfirer.jsql.metadata.TableEntityInfo;
-import com.jfirer.jsql.model.Model;
+import cc.jfire.jsql.SessionFactory;
+import cc.jfire.jsql.metadata.TableEntityInfo;
+import cc.jfire.jsql.model.Model;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,13 +1,13 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.jfire.core.ApplicationContext;
-import com.jfirer.jfire.core.DefaultApplicationContext;
-import com.jfirer.jfire.core.prepare.annotation.AddProperty;
-import com.jfirer.jfire.core.prepare.annotation.ComponentScan;
-import com.jfirer.jfire.core.prepare.annotation.EnableAutoConfiguration;
-import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
-import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
-import com.jfirer.starter.jsql.entity.User;
+import cc.jfire.jfire.core.ApplicationContext;
+import cc.jfire.jfire.core.DefaultApplicationContext;
+import cc.jfire.jfire.core.prepare.annotation.AddProperty;
+import cc.jfire.jfire.core.prepare.annotation.ComponentScan;
+import cc.jfire.jfire.core.prepare.annotation.EnableAutoConfiguration;
+import cc.jfire.jfire.core.prepare.annotation.configuration.Bean;
+import cc.jfire.jfire.core.prepare.annotation.configuration.Configuration;
+import cc.jfire.starter.jsql.entity.User;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Assert;
 import org.junit.Before;

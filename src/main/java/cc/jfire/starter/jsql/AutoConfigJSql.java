@@ -1,16 +1,15 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.baseutil.Resource;
-import com.jfirer.jfire.core.aop.impl.support.transaction.AwareJdbcTransactionDatasource;
-import com.jfirer.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
-import com.jfirer.jfire.core.inject.notated.CanBeNull;
-import com.jfirer.jfire.core.prepare.annotation.condition.provide.ConditionOnMissBeanType;
-import com.jfirer.jfire.core.prepare.annotation.configuration.Bean;
-import com.jfirer.jfire.core.prepare.annotation.configuration.Configuration;
-import com.jfirer.jfire.core.prepare.annotation.configuration.Primary;
-import com.jfirer.jsql.SessionFactory;
-import com.jfirer.jsql.SessionFactoryConfig;
-import com.jfirer.jsql.dialect.Dialect;
+import cc.jfire.baseutil.Resource;
+import cc.jfire.jfire.core.aop.impl.support.transaction.AwareJdbcTransactionDatasource;
+import cc.jfire.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
+import cc.jfire.jfire.core.inject.notated.CanBeNull;
+import cc.jfire.jfire.core.prepare.annotation.condition.provide.ConditionOnMissBeanType;
+import cc.jfire.jfire.core.prepare.annotation.configuration.Bean;
+import cc.jfire.jfire.core.prepare.annotation.configuration.Configuration;
+import cc.jfire.jsql.SessionFactory;
+import cc.jfire.jsql.SessionFactoryConfig;
+import cc.jfire.jsql.dialect.Dialect;
 
 import javax.sql.DataSource;
 

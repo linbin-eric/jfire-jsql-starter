@@ -1,13 +1,13 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.baseutil.Resource;
-import com.jfirer.jfire.core.aop.notated.Transactional;
-import com.jfirer.jsql.model.Model;
-import com.jfirer.jsql.model.Param;
-import com.jfirer.jsql.session.SqlSession;
-import com.jfirer.starter.jsql.entity.User;
-import com.jfirer.starter.jsql.mapper.UserOp;
-import com.jfirer.starter.jsql.mapper.UserOp2;
+import cc.jfire.baseutil.Resource;
+import cc.jfire.jfire.core.aop.notated.Transactional;
+import cc.jfire.jsql.model.Model;
+import cc.jfire.jsql.model.Param;
+import cc.jfire.jsql.session.SqlSession;
+import cc.jfire.starter.jsql.entity.User;
+import cc.jfire.starter.jsql.mapper.UserOp;
+import cc.jfire.starter.jsql.mapper.UserOp2;
 
 
 @Resource

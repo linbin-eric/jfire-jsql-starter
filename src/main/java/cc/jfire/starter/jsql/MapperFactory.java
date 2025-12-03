@@ -1,19 +1,16 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.baseutil.reflect.ReflectUtil;
-import com.jfirer.baseutil.smc.SmcHelper;
-import com.jfirer.baseutil.smc.compiler.CompileHelper;
-import com.jfirer.baseutil.smc.model.ClassModel;
-import com.jfirer.baseutil.smc.model.MethodModel;
-import com.jfirer.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
-import com.jfirer.jfire.core.bean.BeanDefinition;
-import com.jfirer.jfire.core.beanfactory.BeanFactory;
-import com.jfirer.jsql.SessionFactory;
-import com.jfirer.jsql.mapper.Mapper;
-import com.jfirer.jsql.session.SqlSession;
+import cc.jfire.baseutil.reflect.ReflectUtil;
+import cc.jfire.baseutil.smc.SmcHelper;
+import cc.jfire.baseutil.smc.compiler.CompileHelper;
+import cc.jfire.baseutil.smc.model.ClassModel;
+import cc.jfire.baseutil.smc.model.MethodModel;
+import cc.jfire.jfire.core.bean.BeanDefinition;
+import cc.jfire.jfire.core.beanfactory.BeanFactory;
+import cc.jfire.jsql.SessionFactory;
+import cc.jfire.jsql.session.SqlSession;
 import lombok.Data;
 
-import java.beans.BeanDescriptor;
 import java.lang.reflect.Method;
 
 @Data

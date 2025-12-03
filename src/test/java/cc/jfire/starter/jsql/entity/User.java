@@ -1,8 +1,8 @@
-package com.jfirer.starter.jsql.entity;
+package cc.jfire.starter.jsql.entity;
 
-import com.jfirer.jsql.annotation.AutoIncrement;
-import com.jfirer.jsql.annotation.Pk;
-import com.jfirer.jsql.annotation.TableDef;
+import cc.jfire.jsql.annotation.AutoIncrement;
+import cc.jfire.jsql.annotation.Pk;
+import cc.jfire.jsql.annotation.TableDef;
 
 @TableDef("user")
 public class User

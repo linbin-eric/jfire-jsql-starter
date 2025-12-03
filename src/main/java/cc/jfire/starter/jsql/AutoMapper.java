@@ -1,9 +1,9 @@
-package com.jfirer.starter.jsql;
+package cc.jfire.starter.jsql;
 
-import com.jfirer.baseutil.Resource;
-import com.jfirer.baseutil.bytecode.support.OverridesAttribute;
-import com.jfirer.jfire.core.beanfactory.SelectBeanFactory;
-import com.jfirer.jsql.mapper.Mapper;
+import cc.jfire.baseutil.Resource;
+import cc.jfire.baseutil.bytecode.support.OverridesAttribute;
+import cc.jfire.jfire.core.beanfactory.SelectBeanFactory;
+import cc.jfire.jsql.mapper.Mapper;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
