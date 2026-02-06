@@ -6,6 +6,7 @@ import cc.jfire.baseutil.smc.SmcHelper;
 import cc.jfire.baseutil.smc.compiler.CompileHelper;
 import cc.jfire.baseutil.smc.model.ClassModel;
 import cc.jfire.baseutil.smc.model.MethodModel;
+import cc.jfire.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
 import cc.jfire.jfire.core.bean.BeanDefinition;
 import cc.jfire.jfire.core.beanfactory.BeanFactory;
 import cc.jfire.jsql.SessionFactory;
@@ -40,6 +41,8 @@ public class MapperFactory implements BeanFactory
         {
             throw new IllegalArgumentException();
         }
+        classModel.addImport(JdbcTransactionManager.class);
+        classModel.addImport(ThreadLocal.class);
         for (Method each : type.getMethods())
         {
             if (each.getDeclaringClass() == Repository.class)
@@ -48,6 +51,11 @@ public class MapperFactory implements BeanFactory
             }
             MethodModel   methodModel = new MethodModel(each, classModel);
             StringBuilder body        = new StringBuilder();
+            body.append("""
+                                if (JdbcTransactionManager.CONTEXT.get() == null)
+                                        {
+                                            throw new RuntimeException("请先开启事务");
+                                        }\r\n""");
             body.append("SqlSession sqlSession = sessionFactory.openSession();\r\n");
             if (each.getReturnType() == void.class)
             {
@@ -170,6 +178,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(Param.class);
         methodModel.setParamterNames("param");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).findOne(param);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -184,6 +196,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(Param.class);
         methodModel.setParamterNames("param");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).findList(param);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -198,6 +214,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(Param.class, Page.class);
         methodModel.setParamterNames("param", "page");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).findList(param, page);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -212,6 +232,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(Param.class);
         methodModel.setParamterNames("param");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).count(param);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -226,6 +250,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(Param.class);
         methodModel.setParamterNames("param");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).delete(param);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -240,6 +268,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(repositoryClass);
         methodModel.setParamterNames("entity");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).insert(entity);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -254,6 +286,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(repositoryClass);
         methodModel.setParamterNames("entity");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).save(entity);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
@@ -268,6 +304,10 @@ public class MapperFactory implements BeanFactory
         methodModel.setParamterTypes(repositoryClass);
         methodModel.setParamterNames("entity");
         methodModel.setBody(STR.format("""
+                                               if (JdbcTransactionManager.CONTEXT.get() == null)
+                                                       {
+                                                           throw new RuntimeException("请先开启事务");
+                                                       }
                                                SqlSession sqlSession = sessionFactory.openSession();
                                                return sqlSession.getMapper({}.class).update(entity);\r\n""", SmcHelper.getReferenceName(descriptorClass, classModel)));
         classModel.putMethodModel(methodModel);
