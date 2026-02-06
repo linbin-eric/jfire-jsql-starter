@@ -1,6 +1,5 @@
 package cc.jfire.starter.jsql;
 
-import cc.jfire.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
 import cc.jfire.jsql.SessionFactory;
 import cc.jfire.jsql.metadata.Page;
 import cc.jfire.jsql.metadata.TableEntityInfo;
@@ -25,14 +24,6 @@ public class ReadOnlySession implements SqlSession
         this.sessionFactory = sessionFactory;
     }
 
-    private static void requireTransactional()
-    {
-        if (JdbcTransactionManager.CONTEXT.get() == null)
-        {
-            throw new RuntimeException("请先开启事务");
-        }
-    }
-
     private static UnsupportedOperationException readOnlyException()
     {
         return new UnsupportedOperationException("当前为只读Session，不允许执行写入操作");
@@ -53,28 +44,24 @@ public class ReadOnlySession implements SqlSession
     @Override
     public <T> T findOne(QueryModel model)
     {
-        requireTransactional();
         return sessionFactory.openSession().findOne(model);
     }
 
     @Override
     public <T> List<T> findList(QueryModel model)
     {
-        requireTransactional();
         return sessionFactory.openSession().findList(model);
     }
 
     @Override
     public Page findListByPage(QueryModel model)
     {
-        requireTransactional();
         return sessionFactory.openSession().findListByPage(model);
     }
 
     @Override
     public int count(Model model)
     {
-        requireTransactional();
         return sessionFactory.openSession().count(model);
     }
 
@@ -117,14 +104,12 @@ public class ReadOnlySession implements SqlSession
     @Override
     public <T> T query(String sql, ResultSetTransfer transfer, List<Object> params)
     {
-        requireTransactional();
         return sessionFactory.openSession().query(sql, transfer, params);
     }
 
     @Override
     public <T> List<T> queryList(String sql, ResultSetTransfer transfer, List<Object> params)
     {
-        requireTransactional();
         return sessionFactory.openSession().queryList(sql, transfer, params);
     }
 
@@ -137,7 +122,6 @@ public class ReadOnlySession implements SqlSession
     @Override
     public Connection getConnection()
     {
-        requireTransactional();
         return sessionFactory.openSession().getConnection();
     }
 }

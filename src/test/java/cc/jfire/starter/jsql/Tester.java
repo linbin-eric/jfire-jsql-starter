@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("com.jfirer.starter.jsql")
+@ComponentScan("cc.jfire.starter.jsql")
 @AddProperty({"starter.jsql.scanPackage=com.jfirer.starter.jsql.entity;com.jfirer.starter.jsql.mapper", "starter.jsql.tableMode=create"})
 public class Tester
 {

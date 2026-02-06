@@ -3,6 +3,8 @@ package cc.jfire.starter.jsql;
 import cc.jfire.baseutil.Resource;
 import cc.jfire.jfire.core.aop.impl.support.transaction.AwareJdbcTransactionDatasource;
 import cc.jfire.jfire.core.aop.impl.support.transaction.JdbcTransactionManager;
+import cc.jfire.jfire.core.aop.impl.support.transaction.JdbcTransactionState;
+import cc.jfire.jfire.core.aop.impl.support.transaction.Propagation;
 import cc.jfire.jfire.core.inject.notated.CanBeNull;
 import cc.jfire.jfire.core.prepare.annotation.condition.provide.ConditionOnMissBeanType;
 import cc.jfire.jfire.core.prepare.annotation.configuration.Bean;
@@ -12,6 +14,8 @@ import cc.jfire.jsql.SessionFactoryConfig;
 import cc.jfire.jsql.dialect.Dialect;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @Configuration
 public class AutoConfigJSql
@@ -24,17 +28,31 @@ public class AutoConfigJSql
     @ConditionOnMissBeanType(SessionFactory.class)
     public SessionFactory sessionFactory(DataSource dataSource)
     {
-        SessionFactoryConfig sessionfactoryConfig = new SessionFactoryConfig();
-        if (dataSource instanceof AwareJdbcTransactionDatasource awareJdbcTransactionDatasource)
+        try
         {
-            sessionfactoryConfig.setDataSource(dataSource);
+            SessionFactoryConfig sessionfactoryConfig = new SessionFactoryConfig();
+            Connection           connection;
+            if (dataSource instanceof AwareJdbcTransactionDatasource awareJdbcTransactionDatasource)
+            {
+                connection = awareJdbcTransactionDatasource.getDataSource().getConnection();
+                sessionfactoryConfig.setDataSource(dataSource);
+            }
+            else
+            {
+                connection = dataSource.getConnection();
+                sessionfactoryConfig.setDataSource(new AwareJdbcTransactionDatasource(dataSource));
+            }
+            JdbcTransactionManager.CONTEXT.set(new JdbcTransactionState(null, Propagation.REQUIRED, connection));
+            sessionfactoryConfig.setDialect(dialect);
+            SessionFactory sessionFactory = sessionfactoryConfig.build();
+            connection.close();
+            JdbcTransactionManager.CONTEXT.remove();
+            return sessionFactory;
         }
-        else
+        catch (SQLException e)
         {
-            sessionfactoryConfig.setDataSource(new AwareJdbcTransactionDatasource(dataSource));
+            throw new RuntimeException(e);
         }
-        sessionfactoryConfig.setDialect(dialect);
-        return sessionfactoryConfig.build();
     }
 
     @Bean
