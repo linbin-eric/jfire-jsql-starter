@@ -27,7 +27,7 @@ public class MapperFactory implements BeanFactory
         classModel.addImport(SqlSession.class);
         String   referenceName = SmcHelper.getReferenceName(descriptorClass, classModel);
         Class<?> type          = descriptorClass;
-        while (type != Object.class)
+        while (type != Object.class && type!=null)
         {
             for (Method each : type.getDeclaredMethods())
             {
